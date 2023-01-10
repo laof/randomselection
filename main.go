@@ -116,7 +116,7 @@ func main() {
 
 	fmt.Println("")
 	fmt.Println("http://localhost:6788")
-	http.ListenAndServe(":6788", nil)
+	http.ListenAndServe("localhost:6788", nil) // only local
 
 }
 
