@@ -39,7 +39,7 @@
 
             var ok = window.confirm("没有可用数据，是否清空缓存， 重新开始？");
             if (ok) {
-              fetch("/api/delete").then(() => run());
+              fetch("api/delete").then(() => run());
             }
           });
       }
