@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"math/rand"
 	"net/http"
 	"os"
@@ -32,7 +32,7 @@ func main() {
 	}
 
 	check()
-	txt, _ := ioutil.ReadAll(dataf)
+	txt, _ := io.ReadAll(dataf)
 	ck := strings.Split(string(txt), "\n")
 	dataf.Close()
 
@@ -58,7 +58,7 @@ func main() {
 		}
 		defer file.Close()
 
-		old, _ := ioutil.ReadAll(file)
+		old, _ := io.ReadAll(file)
 
 		var cache []string
 
@@ -108,7 +108,7 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		// aa, _ := os.Open("index.html")
-		// body, _ := ioutil.ReadAll(aa)
+		// body, _ := io.ReadAll(aa)
 		// w.Write([]byte(body))
 
 		w.Write([]byte(html))

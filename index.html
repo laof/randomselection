@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>start</title>
+    <title>RD</title>
     <style>
       h1 {
         text-align: center;
@@ -12,7 +12,7 @@
         color: #e78e1f;
       }
       button {
-        padding: 10px 30px;
+        padding: 10px 60px;
         font-size: 30px;
         margin: auto;
         display: block;
@@ -21,34 +21,26 @@
   </head>
   <body>
     <h1>...</h1>
-    <button onclick="go1()">START</button>
+    <button onclick="run()">GO</button>
     <script>
-      function go1() {
+      function run() {
         document.querySelector("button").style.display = "none";
         document.querySelector("h1").innerHTML = "...";
         fetch("api/get")
           .then((res) => {
-            if (res.status == 200) {
-              return res.text();
-            } else {
-              return Promise.resolve(false);
-            }
+            return res.status == 200 ? res.text() : Promise.resolve(false);
           })
           .then((res) => {
-            if (res === false) {
-              var a = window.confirm("没有可用数据，是否清空缓存， 重新开始？");
-
-              if (a) {
-                fetch("/api/delete").then((res) => {
-                  go1();
-                });
-              }
-
+            if (res !== false) {
+              document.querySelector("button").style.display = "block";
+              document.querySelector("h1").innerHTML = res;
               return;
             }
 
-            document.querySelector("button").style.display = "block";
-            document.querySelector("h1").innerHTML = res;
+            var ok = window.confirm("没有可用数据，是否清空缓存， 重新开始？");
+            if (ok) {
+              fetch("/api/delete").then(() => run());
+            }
           });
       }
     </script>
