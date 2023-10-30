@@ -1,1 +1,1 @@
-# rd - random selection
+# random selection
